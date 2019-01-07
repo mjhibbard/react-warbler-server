@@ -5,6 +5,8 @@ const cors = require("cors");
 const bodyparser = require("body-parser");
 const errorHandler = require("./handlers/error");
 const authRoutes = require("./routes/auth");
+const messagesRoutes = require("./routes/messages");
+const { logInRequired, ensureCorrectUser } = require("./middleware/auth");
 
 const PORT = 8081;
 
@@ -12,7 +14,17 @@ app.use(cors());
 app.use(bodyparser.json());
 
 app.use("/api/auth", authRoutes);
+app.use(
+  "/api/users/:id/messages",
+  logInRequired,
+  ensureCorrectUser,
+  messagesRoutes
+);
+
 //Routes here:
+app.get("/api/messages", logInRequired, async function(req, res, next) {
+  //YOU ARE WORKING RIGHT HERE!!-----------------------------------------------------------
+})
 
 app.use(function (req, res, next) {
   let err = new Error("Not Found");
