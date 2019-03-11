@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.set("useCreateIndex", true)
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({

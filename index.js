@@ -23,7 +23,17 @@ app.use(
 
 //Routes here:
 app.get("/api/messages", logInRequired, async function(req, res, next) {
-  //YOU ARE WORKING RIGHT HERE!!-----------------------------------------------------------
+  try {
+    let messages = await db.Message.find()
+    .sort({createdAt: "desc"})
+    .populate("user", {
+      username: true,
+      profileImageUrl: true
+    });
+    return res.status(200).json(messages);
+  } catch(err) {
+    return next(err);
+  }
 })
 
 app.use(function (req, res, next) {
