@@ -3,8 +3,9 @@ mongoose.set("debug", true);
 mongoose.Promise = Promise;
 mongoose.connect("mongodb://localhost/warbler", {
   keepAlive: true,
-  reconnectTries: Number.MAX_VALUE,
-  useNewUrlParser: true
+  // reconnectTries: Number.MAX_VALUE,
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
 module.exports.User = require('./user');
